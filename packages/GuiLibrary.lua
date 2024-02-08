@@ -6886,7 +6886,7 @@ if shared.VapeExecuted then
 		if enabled then
 			local touch = inputService.TouchEnabled
 			local text = (touch or GuiLibrary.GUIKeybind == "RightShift") and GuiLibrary.Emulator == nil and "Press the button on the top right to open the Interface." or "Press "..GuiLibrary.GUIKeybind.." to open the Interface."
-		    GuiLibrary.CreateNotification("GUI Loaded", text, 7)
+		    GuiLibrary.CreateNotification("Lyno Loaded", "Press The Top Button To Open GUI | Lyno On Top", 10)
 		end
 	end
 
