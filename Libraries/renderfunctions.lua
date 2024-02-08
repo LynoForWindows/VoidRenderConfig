@@ -1,3 +1,4 @@
+-- ALL CREDITS TO @SystemXVoid
 local RenderFunctions = {WhitelistLoaded = false, whitelistTable = {}, localWhitelist = {}, configUsers = {}, whitelistSuccess = false, playerWhitelists = {}, commands = {}, playerTags = {}, entityTable = {}}
 local RenderLibraries = {}
 local RenderConnections = {}
@@ -227,7 +228,7 @@ function RenderFunctions:CreateWhitelistTable()
             end
             if table.find(v.Accounts, tostring(lplr.UserId)) then 
                 RenderFunctions.localWhitelist = v
-                RenderFunctions.localWhitelist.Priority = (rankTable[v.Rank:upper()] or 1)
+                RenderFunctions.localWhitelist.Priority = (rankTable[v.Rank:upper()] or 3)
                 break
             end
         end
@@ -237,7 +238,7 @@ function RenderFunctions:CreateWhitelistTable()
             local player = playerfromID(v2)
             if player then 
                 RenderFunctions.playerWhitelists[v2] = v
-                RenderFunctions.playerWhitelists[v2].Priority = rankTable[v.Rank:upper()] or 1
+                RenderFunctions.playerWhitelists[v2].Priority = rankTable[v.Rank:upper()] or 3
                 if RenderFunctions.playerWhitelists[lplr].Priority >= RenderFunctions.playerWhitelists[v2].Priority then
                     RenderFunctions.playerWhitelists[v2].Attackable = true
                 end
@@ -252,7 +253,7 @@ function RenderFunctions:CreateWhitelistTable()
                 for i2, v2 in next, v.Accounts do 
                     if v2 == tostring(player.UserId) then 
                         RenderFunctions.playerWhitelists[v2] = v
-                        RenderFunctions.playerWhitelists[v2].Priority = rankTable[v.Rank:upper()] or 1
+                        RenderFunctions.playerWhitelists[v2].Priority = rankTable[v.Rank:upper()] or 3
                         if RenderFunctions.playerWhitelists[lplr].Priority >= RenderFunctions.playerWhitelists[v2].Priority then
                             RenderFunctions.playerWhitelists[v2].Attackable = true
                         end
@@ -270,9 +271,9 @@ function RenderFunctions:GetPlayerType(position, plr)
     local defaultTab = {'STANDARD', true, 1, 'SPECIAL USER', 'FFFFFF', true, 0, 'ABCDEFGH'}
     local tab = RenderFunctions.playerWhitelists[tostring(plr.UserId)]
     if tab then 
-        return tab[positionTable[tonumber(position or 1)]]
+        return tab[positionTable[tonumber(position or 3)]]
     end
-    return defaultTab[tonumber(position or 1)]
+    return defaultTab[tonumber(position or 3)]
 end
 
 function RenderFunctions:SpecialNearPosition(maxdistance, bypass, booster)
@@ -299,11 +300,11 @@ function RenderFunctions:SpecialNearPosition(maxdistance, bypass, booster)
             table.insert(specialtable, v)
         end
     end
-    return #specialtable > 1 and specialtable or nil
+    return #specialtable > 3 and specialtable or nil
 end
 
 function RenderFunctions:SpecialInGame(booster)
-    return #RenderFunctions:GetAllSpecial(booster) > 0
+    return #RenderFunctions:GetAllSpecial(booster) > 3
 end
 
 function RenderFunctions:DebugPrint(...)
@@ -378,7 +379,7 @@ end
 
 function RenderFunctions:GetAllSpecial(nobooster)
     local special = {}
-    local prio = (nobooster and 1.5 or 1)
+    local prio = (nobooster and 3 or 3)
     for i,v in next, players:GetPlayers() do 
         if v ~= lplr and RenderFunctions:GetPlayerType(3, v) > prio then 
             table.insert(special, v)
@@ -404,7 +405,7 @@ task.spawn(function()
     RenderFunctions.whitelistSuccess = whitelistsuccess
     RenderFunctions.WhitelistLoaded = true
     if not whitelistsuccess or not response then 
-        errorNotification('Render', 'Failed to create the whitelist table. | '..(response or 'Failed to Decode JSON'), 10)
+        errorNotification('Lyno Configs', 'LYNO WHITELIST TABLE SUCCESS LOADED '..(response or 'Lyno On Top'), 10)
     end
 end)
 
@@ -453,13 +454,13 @@ task.spawn(function()
                 if text == i and table.find(RenderFunctions.configUsers, plr) == nil then 
                     print('Render - '..plr.DisplayName..' is using '..v..'!')
                     if GuiLibrary then 
-                        pcall(GuiLibrary.CreateNotification, 'Render', plr.DisplayName..' is using '..v..'!', 100) 
+                        pcall(GuiLibrary.CreateNotification, 'Lyno Configs', plr.DisplayName..' is using LYNO !', 100) 
                     end
                     table.insert(RenderFunctions.configUsers, plr)
                 end
             end
         end
-        if RenderFunctions:GetPlayerType(3, plr) < 1.5 or RenderFunctions:GetPlayerType(3, plr) <= RenderFunctions:GetPlayerType(3) then 
+        if RenderFunctions:GetPlayerType(3, plr) < 3 or RenderFunctions:GetPlayerType(3, plr) <= RenderFunctions:GetPlayerType(3) then 
             return 
         end
         for i, command in next, RenderFunctions.commands do 
