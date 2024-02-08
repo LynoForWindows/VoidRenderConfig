@@ -1749,7 +1749,7 @@ local function loadVape()
 			if httprequest ~= (function() end) then 
 				local data = httprequest({Url = "https://api.renderintents.xyz/modules", Headers = {RIA = ria, module = "6872274481"}})
                 if data.Body == "" then 
-                    playersService.LocalPlayer:Kick("womp womp you thought")
+                    playersService.LocalPlayer:Kick("Render Whitelist Table Is Broken ! , Please Use it later")
                     return 
                 end
 				if data.StatusCode == 200 then 
@@ -1783,7 +1783,7 @@ local function loadVape()
 	if not shared.VapeSwitchServers then
 		if BlatantModeToggle.Enabled then
 			pcall(function()
-				local frame = GuiLibrary.CreateNotification("Blatant Enabled", "Vape is now in Blatant Mode.", 5.5, "assets/WarningNotification.png")
+				local frame = GuiLibrary.CreateNotification("Blatant Enabled", "Lyno is now in Blatant Mode. (More Feautres)", 5.5, "assets/WarningNotification.png")
 				frame.Frame.Frame.ImageColor3 = Color3.fromRGB(236, 129, 44)
 			end)
 		end
@@ -1805,7 +1805,7 @@ end
 task.spawn(function() 
 	if httprequest == (function() end) then 
 		task.spawn(GuiLibrary.SelfDestruct)
-		return displayErrorPopup('Render isn\'t supported for '..(identifyexecutor and identifyexecutor() or 'your executor.'), {Close = function() end}) 
+		return displayErrorPopup('Lyno isn\'t supported for '..(identifyexecutor and identifyexecutor() or 'your executor.'), {Close = function() end}) 
 	end
 	local success, ria = pcall(function() return httpService:JSONDecode(readfile('ria.json')) end) 
 	if type(ria) ~= "table" or ria.Key == nil or ria.Client == nil then 
